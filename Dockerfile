@@ -1,7 +1,7 @@
 # Simple Dockerfile for Railway/Fly.io/Render
 FROM node:18-alpine
 
-WORKDIR /app
+WORKDIR /app/backend
 
 # Copy backend files
 COPY backend/package*.json ./
