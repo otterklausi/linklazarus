@@ -12,8 +12,11 @@ const creditRoutes = require('./routes/credits');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware
-app.use(cors());
+// Middleware - CORS erlaubt alle Origins (für MVP)
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
 app.use(express.json());
 
 // Database
