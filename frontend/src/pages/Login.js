@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/Login.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+const API_URL = process.env.REACT_APP_API_URL || 'https://linklazarus-api-production-47d4.up.railway.app';
 
 function Login({ onLogin }) {
   const [isLogin, setIsLogin] = useState(true);

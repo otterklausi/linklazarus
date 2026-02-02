@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Dashboard.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+const API_URL = process.env.REACT_APP_API_URL || 'https://linklazarus-api-production-47d4.up.railway.app';
 
 function Dashboard({ user, onLogout }) {
   const [keyword, setKeyword] = useState('');
