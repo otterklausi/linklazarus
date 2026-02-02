@@ -1,10 +1,11 @@
 [build]
+  base = "frontend"
   command = "npm run build"
   publish = "frontend/build"
 
 [[redirects]]
   from = "/api/*"
-  to = "https://linklazarus-api.onrender.com/api/:splat"
+  to = "https://linklazarus-api-production-47d4.up.railway.app/api/:splat"
   status = 200
 
 [[redirects]]
