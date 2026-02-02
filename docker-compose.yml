@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: linklazarus
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: linklazarus
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: postgresql://linklazarus:password@postgres:5432/linklazarus
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: your-super-secret-key-change-this
+      DATAFORSEO_LOGIN: hello@karimyahia.de
+      DATAFORSEO_PASSWORD: ad8c35fb616f182c
+      HUNTER_API_KEY: d6c20928375c258669e781ae177a92d9a8c894e7
+    depends_on:
+      - postgres
+      - redis
+    command: sh -c "sleep 5 && node server.js"
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgresql://linklazarus:password@postgres:5432/linklazarus
+      REDIS_URL: redis://redis:6379
+      DATAFORSEO_LOGIN: hello@karimyahia.de
+      DATAFORSEO_PASSWORD: ad8c35fb616f182c
+      HUNTER_API_KEY: d6c20928375c258669e781ae177a92d9a8c894e7
+    depends_on:
+      - postgres
+      - redis
+    command: sh -c "sleep 10 && node worker.js"
+
+volumes:
+  postgres_data:
