@@ -19,9 +19,10 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Database
+// Database - SSL für Railway
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || 'postgresql://localhost:5432/linklazarus'
+  connectionString: process.env.DATABASE_URL || 'postgresql://localhost:5432/linklazarus',
+  ssl: process.env.DATABASE_URL?.includes('railway') ? { rejectUnauthorized: false } : false
 });
 
 // Redis for Queue
