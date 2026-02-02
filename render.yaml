@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: linklazarus-api
+    env: node
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: linklazarus-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: linklazarus-redis
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATAFORSEO_LOGIN
+        sync: false
+      - key: DATAFORSEO_PASSWORD
+        sync: false
+      - key: HUNTER_API_KEY
+        sync: false
+
+databases:
+  - name: linklazarus-db
+    databaseName: linklazarus
+    user: linklazarus
+
+redis:
+  - name: linklazarus-redis
+    ipAllowList: []
