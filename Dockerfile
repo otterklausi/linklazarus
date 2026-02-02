@@ -1,14 +1,14 @@
 # Simple Dockerfile for Railway/Fly.io/Render
 FROM node:18-alpine
 
-WORKDIR /app/backend
+WORKDIR /app
 
 # Copy backend files
-COPY backend/package*.json ./
-RUN npm install
+COPY backend/package*.json ./backend/
+RUN cd backend && npm install
 
-COPY backend/ ./
+COPY backend/ ./backend/
 
 EXPOSE 3001
 
-CMD ["node", "server.js"]
+CMD ["sh", "/app/backend/start.sh"]
